@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,10 +18,10 @@ namespace irf_versc2
         public Form1()
         {
             InitializeComponent();
-            label1.Text = Resource1.LastName; // label1
-            label2.Text = Resource1.FirstName; // label2
+            label1.Text = Resource1.FullName; // label1
+            
             button1.Text = Resource1.Add; // button1
-
+            button2.Text = Resource1.WriteIntoFile;
 
             // listbox1
             listBox1.DataSource = users;
@@ -32,10 +33,34 @@ namespace irf_versc2
         {
             var u = new User()
             {
-                LastName = textBox1.Text,
-                FirstName = textBox2.Text
+                FullName = textBox1.Text + ' ' + textBox2.Text
             };
             users.Add(u);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            using (var sfd = new SaveFileDialog())
+            {
+                sfd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                sfd.FilterIndex = 2;
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    
+                    TextWriter tw = new StreamWriter(sfd.FileName);
+
+                    foreach (User s in users)
+                    {
+                        tw.WriteLine(s.FullName + ' ' + s.ID.ToString());
+                    }
+
+                        
+                        
+
+                    tw.Close();
+                }
+            }
         }
     }
 }

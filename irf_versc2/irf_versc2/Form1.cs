@@ -62,5 +62,29 @@ namespace irf_versc2
                 }
             }
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int index = 0;
+                var cu = (User)listBox1.SelectedItem;
+                for (int i = 0; i < users.Count(); i++)
+                {
+                    if (cu.ID == users[i].ID)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+                users.RemoveAt(index);
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("hiba a mátrixban");
+            }
+
+        }
     }
 }

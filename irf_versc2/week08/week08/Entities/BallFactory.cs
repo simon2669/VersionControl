@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace week08.Entities
 {
-    class BallFactory
+    public class BallFactory
     {
-        public Ball CreateNew()
+        private Ball CreateNew()
         {
             return new Ball();
         }
